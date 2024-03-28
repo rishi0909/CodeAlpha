@@ -1,0 +1,144 @@
+import java.util.*;
+class Bank {
+  Random random = new Random();
+  long accno = random.nextLong(100000000);
+  String name;
+  double bal = 0;
+  long id;
+  double withdraw = 0;
+  int pin = 0;
+  String ifs = "BOF";
+  long ifsc = random.nextLong(100000);
+  Scanner s = new Scanner(System.in);
+  
+  void openAcc() {
+    System.out.print("Enter your name : ");
+    name = s.nextLine();
+   // s.nextLine();
+    System.out.print("Create a UNQID : ");
+    id = s.nextLong();
+    System.out.print("Enter your balance : ");
+    bal = s.nextDouble();
+    System.out.print("Create a Pin : ");
+    pin = s.nextInt();
+    System.out.print("Your A/C No. is : "+accno+"\n");
+    System.out.print("Your IFSC is : "+ifs+ifsc+"\n\n");
+  }
+
+  void deposit() {
+    System.out.print("Enter Amount to Deposit : ");
+    bal += s.nextLong();
+    System.out.println("Amount Deposited Successfully \n");
+    System.out.println("Your Current Balance is : "+bal+"\n");
+  }
+
+  void withdraw() {
+    System.out.print("Enter Amount to Withdraw : ");
+    long withdraw = s.nextLong();
+if(bal >= withdraw) {
+      bal -= withdraw;
+      System.out.println("Amount Withdrawn Successfully \n");
+      System.out.println("Your Current Balance is : "+bal+"\n");
+    }
+    else {  System.out.println("Insufficient Balance \n");
+    }
+  }
+
+  void show() {
+    System.out.print("ACCOUNT NAME : "+name.toUpperCase()+"\n");
+    System.out.print("ACCOUNT NO. : "+accno+"\n");
+    System.out.print("IFSC : "+ifs+ifsc+"\n");
+    System.out.print("AVAILABLE BALANCE : "+bal+"\n\n");
+  }
+
+  void checkbal() {
+    System.out.println("Your Current Balance is : "+bal+"\n");
+  }
+
+  boolean search(long acccno) {
+    if(id == acccno) {
+      show();
+      return true;
+    } 
+    else {
+      return false;
+    }
+  }
+
+  boolean asearch(long acccno) {
+    if(id == acccno) {
+      return true;
+    } 
+    else {
+      return false;
+    }  
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    long acno;
+   Scanner sc = new Scanner(System.in);
+    List<Bank> accs = new ArrayList<>();
+    System.out.println("*** WELCOME TO BANK OF FARIDABAD ***\n");
+    while(true) {
+      Bank acc = new Bank();
+    System.out.println("Open Account ... press 1\nAccount Overview ... press 2\nDeposit Amount ... press 3\nWithdraw Amount... press 4\nCheck Balance ... press 5");
+    System.out.print("Enter your choice : ");
+    int choice = sc.nextInt();
+      System.out.println();
+    if(choice == 1) {
+        acc.openAcc();
+        accs.add(acc);
+    }
+      
+      else if(choice == 2) {
+      System.out.print("Enter your UNQID : ");
+          acno = sc.nextLong();
+        for(Bank a : accs) {
+          if(a.search(acno)){
+            break;
+          }
+          }
+         }
+        
+        else if(choice == 3) {
+      System.out.print("Enter your UNQID : ");
+          acno = sc.nextLong();
+         for(Bank a : accs) {
+           if(a.asearch(acno)) {
+             a.deposit();
+             break;
+           }
+           } 
+          }
+
+          else if(choice == 4) {
+      System.out.print("Enter your UNQID : ");
+          acno = sc.nextLong();
+         for(Bank a : accs) {
+           if(a.asearch(acno)) {
+             a.withdraw();
+             break;
+           }
+           } 
+          }
+
+          else if(choice == 5) {
+      System.out.print("Enter your UNQID : ");
+          acno = sc.nextLong();
+         for(Bank a : accs) {
+           if(a.asearch(acno)) {
+             a.checkbal();
+             break;
+           }
+           } 
+          }
+              
+    else {
+  System.out.println("Invalid");
+     }
+    }
+    
+  }
+}
